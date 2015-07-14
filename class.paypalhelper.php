@@ -1,0 +1,108 @@
+<?php
+	class PayPalHelper
+	{
+		// Private properties
+		private $Mode;
+		private $Endpoint;
+
+		// Public properties
+		public $Config;
+		public $Result;
+		public $Success;
+
+		// Construct
+		public function __construct($Endpoint = "")
+		{
+			$this->Endpoint = $Endpoint;
+			$this->Config = array();
+			$this->SetMode(0);
+		}
+
+		// Methods
+
+		/*
+			Config should be a "key" => "value" array with options that are perminently passed
+			to the API call
+		*/
+		public function SetConfig($Array = array(), $Mode = 0)
+		{
+			$this->Config[$Mode] = $Array;
+		}
+
+		/*
+			Sets mode
+		*/
+		public function SetMode($Mode)
+		{
+			$this->Mode = $Mode;
+		}
+
+		/*
+			Sets Endpoint
+		*/
+		public function SetEndpoint($URL)
+		{
+			if(is_string($URL))
+				$this->Endpoint = $URL;
+		}
+
+		/*
+			Make a call to PayPal
+			Param1: Array of options (key => value)
+			Param2: (optional) Overrides endpoint
+		*/
+		public function DoCall($Array, $Endpoint = null)
+		{
+			if($Endpoint != null)
+				$this->Endpoint = $Endpoint;
+
+			$RequestParams = array_merge($this->Config[$this->Mode], $Array);
+
+			$RequestParamsString = "";
+			foreach($RequestParams as $k => $v)
+				$RequestParamsString .= "&".$k."=".urlencode($v);
+			$RequestParamsString = ltrim($RequestParamsString, "&");
+
+			$Curl = curl_init();
+			curl_setopt($Curl, CURLOPT_VERBOSE, 1);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+			curl_setopt($Curl, CURLOPT_TIMEOUT, 30);
+			curl_setopt($Curl, CURLOPT_URL, $this->Endpoint);
+			curl_setopt($Curl, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($Curl, CURLOPT_POSTFIELDS, $RequestParamsString);
+
+			$httpResponse = curl_exec($Curl);
+			curl_close($Curl);
+
+			$httpResponseAr = explode("&", $httpResponse);
+
+			$httpParsedResponseAr = array();
+			foreach ($httpResponseAr as $i => $value) {
+				$tmpAr = explode("=", $value);
+				if(sizeof($tmpAr) > 1) {
+					$httpParsedResponseAr[$tmpAr[0]] = urldecode($tmpAr[1]);
+				}
+			}
+
+			$this->Result = $httpParsedResponseAr;
+
+			if(strtoupper($PayPalHelper->Result["ACK"]) == "SUCCESS" || strtoupper($PayPalHelper->Result["ACK"]) == "SUCCESSWITHWARNING")
+				$this->Success = true;
+			else
+				$this->Success = false;
+
+			return $this->Result;
+		}
+
+		/*
+			Gets config by key, if no key passed entire config array is returned
+		*/
+		public function GetConfig($Key = null)
+		{
+			if(is_string($Key))
+				return $this->Config[$this->Mode][$Key];
+			else
+				return $this->Config[$this->Mode];
+		}
+	}
