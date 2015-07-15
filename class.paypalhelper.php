@@ -129,8 +129,8 @@
 
 			$Curl = curl_init();
 			curl_setopt($Curl, CURLOPT_VERBOSE, 1);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+			curl_setopt($Curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+			curl_setopt($Curl, CURLOPT_SSL_VERIFYHOST, FALSE);
 			curl_setopt($Curl, CURLOPT_TIMEOUT, 30);
 			curl_setopt($Curl, CURLOPT_URL, $this->Endpoint);
 			curl_setopt($Curl, CURLOPT_RETURNTRANSFER, 1);
