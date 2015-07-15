@@ -17,10 +17,10 @@ $PayPalHelper->SetConfig(array(
   
 // Make the API call  
 $PayPalHelper->DoCall(array(  
-	 "METHOD"			=> "SetExpressCheckout",  
-	 "AMT"				=> "10.0",  
-	 "cancelUrl"		=> "http://www.example.com/cancel.html",  
-	 "returnUrl"		=> "http://www.example.com/success.html"  
+	 "METHOD"		=> "SetExpressCheckout",  
+	 "AMT"			=> "10.0",  
+	 "cancelUrl"	=> "http://www.example.com/cancel.html",  
+	 "returnUrl"	=> "http://www.example.com/success.html"  
 ));  
   
 // Check success  
