@@ -6,10 +6,10 @@
 		private $Endpoint;
 		private $Version;
 		private $Config;
+		private $Success;
 
 		// Public properties
 		public $Result;
-		public $Success;
 
 		// Construct
 		public function __construct($Endpoint = "", $Version = "109.0")
@@ -75,6 +75,14 @@
 		public function GetMode()
 		{
 			return $this->Mode;
+		}
+
+		/*
+			Gets success
+		*/
+		public function Success()
+		{
+			return $this->Success;
 		}
 
 		/*
