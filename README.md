@@ -37,14 +37,14 @@ $PayPalHelper->DoCall(array(
 ));  
   
 // Check success  
-if($PayPalHelper->Success)  
+if($PayPalHelper->Success())  
 	 var_dump($PayPalHelper->Result);  
 else  
 	 echo "Error: ".$PayPalHelper->Result["L_LONGMESSAGE0"];
 ```
 
 
-**Example of using different modes, and setting version**
+**Example of using different modes**
 
 
 ```php
