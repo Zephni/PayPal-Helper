@@ -5,15 +5,14 @@ Description: For making PayPal API calls with ease
 **Example standard usage**  
 
 ```php
-// PayPalHelper construct (with endpoint url passed)
-$PayPalHelper = new PayPalHelper("https://api-3t.sandbox.paypal.com/nvp");  
+// PayPalHelper construct (with endpoint url and version passed)  
+$PayPalHelper = new PayPalHelper("https://api-3t.sandbox.paypal.com/nvp", "109.0");  
   
 // Config that will be passed to all API calls  
 $PayPalHelper->SetConfig(array(  
 	 "USER"			=> "USERNAME",  
 	 "PWD"			=> "PASSWORD",  
-	 "SIGNATURE"	=> "SIGNATURE",  
-	 "VERSION"		=> "109.0"  
+	 "SIGNATURE"	=> "SIGNATURE"  
 ));  
   
 // Make the API call  
@@ -45,7 +44,7 @@ else
 ```
 
 
-**Example of using different modes**
+**Example of using different modes, and setting version**
 
 
 ```php
@@ -53,23 +52,21 @@ else
 define("SANDBOXMODE", 0);  
 define("LIVEMODE", 1);  
   
-// PayPalHelper construct (with endpoint url passed)  
-$PayPalHelper = new PayPalHelper("https://api-3t.sandbox.paypal.com/nvp");
+// PayPalHelper construct (with endpoint url and version passed)  
+$PayPalHelper = new PayPalHelper("https://api-3t.sandbox.paypal.com/nvp", "109.0");  
   
 // Set sandbox config
 $PayPalHelper->SetConfig(array(  
 	 "USER"			=> "SANDBOX-USERNAME",  
 	 "PWD"			=> "SANDBOX-PASSWORD",  
-	 "SIGNATURE"	=> "SANDBOX-SIGNATURE",  
-	 "VERSION"		=> "109.0"  
+	 "SIGNATURE"	=> "SANDBOX-SIGNATURE"  
 ), SANDBOXMODE);  
   
 // Set live config
 $PayPalHelper->SetConfig(array(  
 	 "USER"			=> "USERNAME",  
 	 "PWD"			=> "PASSWORD",  
-	 "SIGNATURE"	=> "SIGNATURE",  
-	 "VERSION"		=> "109.0"  
+	 "SIGNATURE"	=> "SIGNATURE"  
 ), LIVEMODE);  
   
 // Set mode  

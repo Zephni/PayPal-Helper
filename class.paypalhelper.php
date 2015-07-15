@@ -4,16 +4,18 @@
 		// Private properties
 		private $Mode;
 		private $Endpoint;
+		private $Version;
+		private $Config;
 
 		// Public properties
-		public $Config;
 		public $Result;
 		public $Success;
 
 		// Construct
-		public function __construct($Endpoint = "")
+		public function __construct($Endpoint = "", $Version = "109.0")
 		{
 			$this->Endpoint = $Endpoint;
+			$this->Version = $Version;
 			$this->Config = array();
 			$this->SetMode(0);
 		}
@@ -30,6 +32,36 @@
 		}
 
 		/*
+			Gets config by key, if no key passed entire config array is returned
+		*/
+		public function GetConfig($Key = null)
+		{
+			if(is_string($Key))
+				return $this->Config[$this->Mode][$Key];
+			else
+				return $this->Config[$this->Mode];
+		}
+
+		/*
+			Sets version
+		*/
+		public function SetVersion($Version)
+		{
+			if(is_string($Version))
+				return $this->Version = $Version;
+			else
+				return false;
+		}
+
+		/*
+			Gets version
+		*/
+		public function GetVersion()
+		{
+			return $this->Version;
+		}
+
+		/*
 			Sets mode
 		*/
 		public function SetMode($Mode)
@@ -38,12 +70,30 @@
 		}
 
 		/*
+			Gets mode
+		*/
+		public function GetMode()
+		{
+			return $this->Mode;
+		}
+
+		/*
 			Sets Endpoint
 		*/
-		public function SetEndpoint($URL)
+		public function SetEndpoint($Endpoint)
 		{
-			if(is_string($URL))
-				$this->Endpoint = $URL;
+			if(is_string($Endpoint))
+				return $this->Endpoint = $Endpoint;
+			else
+				return false;
+		}
+
+		/*
+			Gets endpoint
+		*/
+		public function GetEndpoint()
+		{
+			return $this->Endpoint;
 		}
 
 		/*
@@ -56,7 +106,11 @@
 			if($Mode != null)
 				$this->Mode = $Mode;
 
-			$RequestParams = array_merge($this->Config[$this->Mode], $Array);
+			$RequestParams = array_merge(
+				array("VERSION" => $this->Version),
+				$this->Config[$this->Mode],
+				$Array
+			);
 
 			$RequestParamsString = "";
 			foreach($RequestParams as $k => $v)
@@ -93,16 +147,5 @@
 				$this->Success = false;
 
 			return $this->Result;
-		}
-
-		/*
-			Gets config by key, if no key passed entire config array is returned
-		*/
-		public function GetConfig($Key = null)
-		{
-			if(is_string($Key))
-				return $this->Config[$this->Mode][$Key];
-			else
-				return $this->Config[$this->Mode];
 		}
 	}
