@@ -51,10 +51,10 @@
 			Param1: Array of options (key => value)
 			Param2: (optional) Overrides endpoint
 		*/
-		public function DoCall($Array, $Endpoint = null)
+		public function DoCall($Array, $Mode = null)
 		{
-			if($Endpoint != null)
-				$this->Endpoint = $Endpoint;
+			if($Mode != null)
+				$this->Mode = $Mode;
 
 			$RequestParams = array_merge($this->Config[$this->Mode], $Array);
 
