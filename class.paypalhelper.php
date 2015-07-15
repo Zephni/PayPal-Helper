@@ -14,10 +14,12 @@
 		// Construct
 		public function __construct($Endpoint = "", $Version = "109.0")
 		{
-			$this->Endpoint = $Endpoint;
-			$this->Version = $Version;
-			$this->Config = array();
 			$this->SetMode(0);
+			$this->SetEndpoint($Endpoint);
+			$this->SetVersion($Version);
+			$this->SetConfig();
+			$this->Success = false;
+			$this->Result = array();
 		}
 
 		// Methods
