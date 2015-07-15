@@ -32,6 +32,17 @@
 		{
 			$this->Config[$Mode] = $Array;
 		}
+		
+		/*
+			Appends to config
+		*/
+		public function AppendConfig($Key, $Value, $Mode = 0)
+		{
+			if(is_string($Key) && is_string($Value))
+				return $this->Config[$Mode][$Key] = $Value;
+			else
+				return false;
+		}
 
 		/*
 			Gets config by key, if no key passed entire config array is returned
@@ -80,14 +91,6 @@
 		}
 
 		/*
-			Gets success
-		*/
-		public function Success()
-		{
-			return $this->Success;
-		}
-
-		/*
 			Sets Endpoint
 		*/
 		public function SetEndpoint($Endpoint)
@@ -104,6 +107,14 @@
 		public function GetEndpoint()
 		{
 			return $this->Endpoint;
+		}
+		
+		/*
+			Gets success
+		*/
+		public function Success()
+		{
+			return $this->Success;
 		}
 
 		/*
