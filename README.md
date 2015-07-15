@@ -49,9 +49,11 @@ else
 
 
 ```php
+// Define PayPal config modes  
 define("SANDBOXMODE", 0);  
 define("LIVEMODE", 1);  
   
+// PayPalHelper construct (with endpoint url passed)  
 $PayPalHelper = new PayPalHelper("https://api-3t.sandbox.paypal.com/nvp");
   
 // Set sandbox config
@@ -62,7 +64,7 @@ $PayPalHelper->SetConfig(array(
 	 "VERSION"		=> "109.0"  
 ), SANDBOXMODE);  
   
-// Set sandbox config
+// Set live config
 $PayPalHelper->SetConfig(array(  
 	 "USER"			=> "USERNAME",  
 	 "PWD"			=> "PASSWORD",  
