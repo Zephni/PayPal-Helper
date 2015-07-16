@@ -122,16 +122,17 @@
 			Param1: Array of options (key => value)
 			Param2: (optional) Overrides endpoint
 		*/
-		public function DoCall($Array, $Mode = null)
+		public function DoCall()
 		{
-			if($Mode != null)
-				$this->Mode = $Mode;
+			$Args = func_get_args();
 
 			$RequestParams = array_merge(
 				array("VERSION" => $this->Version),
-				$this->Config[$this->Mode],
-				$Array
+				$this->Config[$this->Mode]
 			);
+
+			foreach($Args as $item)
+				$RequestParams = array_merge($RequestParams, $item);
 
 			$RequestParamsString = "";
 			foreach($RequestParams as $k => $v)
