@@ -163,7 +163,7 @@
 
 			$this->Result = $httpParsedResponseAr;
 
-			if(strtoupper($PayPalHelper->Result["ACK"]) == "SUCCESS" || strtoupper($PayPalHelper->Result["ACK"]) == "SUCCESSWITHWARNING")
+			if(strtoupper($this->Result["ACK"]) == "SUCCESS" || strtoupper($this->Result["ACK"]) == "SUCCESSWITHWARNING")
 				$this->Success = true;
 			else
 				$this->Success = false;
