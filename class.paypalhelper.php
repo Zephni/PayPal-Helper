@@ -124,21 +124,26 @@
 		*/
 		public function DoCall()
 		{
+			// Get all parameters
 			$Args = func_get_args();
 
+			// Apply VERSION and current config array to RequestParams
 			$RequestParams = array_merge(
 				array("VERSION" => $this->Version),
 				$this->Config[$this->Mode]
 			);
 
+			// Merge all arrays passed to RequestParams
 			foreach($Args as $item)
 				$RequestParams = array_merge($RequestParams, $item);
 
+			// Build RequestParamsString
 			$RequestParamsString = "";
 			foreach($RequestParams as $k => $v)
 				$RequestParamsString .= "&".$k."=".urlencode($v);
 			$RequestParamsString = ltrim($RequestParamsString, "&");
 
+			// Set Curl options
 			$Curl = curl_init();
 			curl_setopt($Curl, CURLOPT_VERBOSE, 1);
 			curl_setopt($Curl, CURLOPT_SSL_VERIFYPEER, FALSE);
@@ -148,9 +153,11 @@
 			curl_setopt($Curl, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($Curl, CURLOPT_POSTFIELDS, $RequestParamsString);
 
+			// Get HTTP response and close Curl
 			$httpResponse = curl_exec($Curl);
 			curl_close($Curl);
 
+			// Get array from response
 			$httpResponseAr = explode("&", $httpResponse);
 
 			$httpParsedResponseAr = array();
