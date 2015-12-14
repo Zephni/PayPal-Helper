@@ -24,7 +24,7 @@
 		// Methods
 
 		/*
-			Config should be a "key" => "value" array with options that are perminently passed
+			Config should be a associative array with options passed by default
 			to the API call
 		*/
 		public function SetConfig($Array = array(), $Mode = 0)
@@ -126,8 +126,7 @@
 
 		/*
 			Make a call to PayPal
-			Param1: Array of options (key => value)
-			Param2: (optional) Overrides endpoint
+			Param1: Associative array of options, default values can be overriden by using same key here
 		*/
 		public function DoCall()
 		{
