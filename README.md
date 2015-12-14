@@ -6,7 +6,7 @@ Description: For making PayPal API calls with ease
 
 ```php
 // PayPalHelper construct (with endpoint url and version passed)  
-$PayPalHelper = new PayPalHelper("https://api-3t.sandbox.paypal.com/nvp", "109.0");  
+$PayPalHelper = new PayPalHelper("https://api-3t.sandbox.paypal.com/nvp", "202");  
   
 // Config that will be passed to all API calls  
 $PayPalHelper->SetConfig(array(  
@@ -33,24 +33,28 @@ else
 
 **Example of using different modes**
 
+Note that ENDPOINT is a special config property that will override the default passed in the constructor.
+
 
 ```php
 // Define PayPal config modes  
 define("SANDBOXMODE", 0);  
 define("LIVEMODE", 1);  
   
-// PayPalHelper construct (with endpoint url and version passed)  
-$PayPalHelper = new PayPalHelper("https://api-3t.sandbox.paypal.com/nvp", "109.0");  
+// PayPalHelper construct (no endpoint or version passed, version is currently 202 by default)
+$PayPalHelper = new PayPalHelper();  
   
 // Set sandbox config
-$PayPalHelper->SetConfig(array(  
+$PayPalHelper->SetConfig(array(
+	 "ENDPOINT"		=> "https://api-3t.sandbox.paypal.com/nvp",
 	 "USER"			=> "SANDBOX-USERNAME",  
 	 "PWD"			=> "SANDBOX-PASSWORD",  
 	 "SIGNATURE"	=> "SANDBOX-SIGNATURE"  
 ), SANDBOXMODE);  
   
 // Set live config
-$PayPalHelper->SetConfig(array(  
+$PayPalHelper->SetConfig(array(
+	 "ENDPOINT"		=> "https://api-3t.paypal.com/nvp",  
 	 "USER"			=> "USERNAME",  
 	 "PWD"			=> "PASSWORD",  
 	 "SIGNATURE"	=> "SIGNATURE"  

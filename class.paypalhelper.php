@@ -12,7 +12,7 @@
 		public $Result;
 
 		// Construct
-		public function __construct($Endpoint = "", $Version = "109.0")
+		public function __construct($Endpoint = "", $Version = "202")
 		{
 			$this->SetMode(0);
 			$this->SetEndpoint($Endpoint);
@@ -80,6 +80,14 @@
 		public function SetMode($Mode)
 		{
 			$this->Mode = $Mode;
+
+			// Update endpoint if set in this config mode
+			if(isset($this->Config[$this->Mode]["ENDPOINT"])
+				&& is_string($this->Config[$this->Mode]["ENDPOINT"])
+				&& strlen($this->Config[$this->Mode]["ENDPOINT"]) > 0)
+			{
+				$this->Endpoint = $this->Config[$this->Mode]["ENDPOINT"];
+			}
 		}
 
 		/*
@@ -126,6 +134,13 @@
 		{
 			// Get all parameters
 			$Args = func_get_args();
+
+			// Unset ENDPOINT in if set so it doesn't get passed as an option
+			if(isset($this->Config[$this->Mode]["ENDPOINT"]))
+			{
+				$this->Endpoint = $this->Config[$this->Mode]["ENDPOINT"];
+				unset($this->Config[$this->Mode]["ENDPOINT"]);
+			}
 
 			// Apply VERSION and current config array to RequestParams
 			$RequestParams = array_merge(
@@ -174,6 +189,10 @@
 				$this->Success = true;
 			else
 				$this->Success = false;
+
+			// Put ENDPOINT back into array
+			if(isset($this->Endpoint))
+				$this->Config[$this->Mode]["ENDPOINT"] = $this->Endpoint;
 
 			return $this->Result;
 		}
