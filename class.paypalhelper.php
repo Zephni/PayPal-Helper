@@ -17,7 +17,6 @@
 			$this->SetMode(0);
 			$this->SetEndpoint($Endpoint);
 			$this->SetVersion($Version);
-			$this->SetConfig();
 			$this->Success = false;
 			$this->Result = array();
 		}
