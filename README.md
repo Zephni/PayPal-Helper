@@ -36,11 +36,7 @@ else
 Note that ENDPOINT is a special config property that will override the default passed in the constructor.
 
 
-```php
-// Define PayPal config modes  
-define("SANDBOXMODE", 0);  
-define("LIVEMODE", 1);  
-  
+```php  
 // PayPalHelper construct (no endpoint or version passed, version is currently 202 by default)
 $PayPalHelper = new PayPalHelper();  
   
@@ -50,7 +46,7 @@ $PayPalHelper->SetConfig(array(
 	 "USER"			=> "SANDBOX-USERNAME",  
 	 "PWD"			=> "SANDBOX-PASSWORD",  
 	 "SIGNATURE"	=> "SANDBOX-SIGNATURE"  
-), SANDBOXMODE);  
+), "SANDBOXMODE");  
   
 // Set live config
 $PayPalHelper->SetConfig(array(
@@ -58,10 +54,10 @@ $PayPalHelper->SetConfig(array(
 	 "USER"			=> "USERNAME",  
 	 "PWD"			=> "PASSWORD",  
 	 "SIGNATURE"	=> "SIGNATURE"  
-), LIVEMODE);  
+), "LIVEMODE");  
   
 // Set mode  
-$PayPalHelper->SetMode(SANDBOXMODE);  
+$PayPalHelper->SetMode("SANDBOXMODE");  
   
 // Then make the call as usual
 ...
